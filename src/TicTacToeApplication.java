@@ -37,17 +37,28 @@ public class TicTacToeApplication {
     }
 
     public static boolean checkWin(char playerField){
-        if(map[0][0]==playerField&&map[0][1]==playerField&&map[0][2]==playerField)return true;
-        if(map[1][0]==playerField&&map[1][1]==playerField&&map[1][2]==playerField)return true;
-        if(map[2][0]==playerField&&map[2][1]==playerField&&map[2][2]==playerField)return true;
-
-        if(map[0][0]==playerField&&map[1][0]==playerField&&map[2][0]==playerField)return true;
-        if(map[0][1]==playerField&&map[1][1]==playerField&&map[2][1]==playerField)return true;
-        if(map[0][2]==playerField&&map[1][2]==playerField&&map[2][2]==playerField)return true;
-
-        if(map[0][0]==playerField&&map[1][1]==playerField&&map[2][2]==playerField)return true;
-        if(map[0][2]==playerField&&map[1][1]==playerField&&map[2][0]==playerField)return true;
-
+//        if(map[0][0]==playerField&&map[0][1]==playerField&&map[0][2]==playerField)return true;
+//        if(map[1][0]==playerField&&map[1][1]==playerField&&map[1][2]==playerField)return true;
+//        if(map[2][0]==playerField&&map[2][1]==playerField&&map[2][2]==playerField)return true;
+//
+//        if(map[0][0]==playerField&&map[1][0]==playerField&&map[2][0]==playerField)return true;
+//        if(map[0][1]==playerField&&map[1][1]==playerField&&map[2][1]==playerField)return true;
+//        if(map[0][2]==playerField&&map[1][2]==playerField&&map[2][2]==playerField)return true;
+//
+//        if(map[0][0]==playerField&&map[1][1]==playerField&&map[2][2]==playerField)return true;
+//        if(map[0][2]==playerField&&map[1][1]==playerField&&map[2][0]==playerField)return true;
+        for (int i = 0; i < MAP_SIZE; i++) {
+            if((map[i][0]==playerField && map[i][1]==playerField &&
+                    map[i][2]==playerField)||
+            (map[0][i]==playerField && map[1][i]==playerField &&
+                    map[2][i]==playerField))
+            return true;
+            if((map[0][0]==playerField && map[1][1]==playerField &&
+                    map[2][2]==playerField)||
+            (map[2][0]==playerField && map[1][1]==playerField &&
+                    map[0][2]==playerField))
+            return true;
+        }
         return false;
     }
     public static boolean checkDraft(){
