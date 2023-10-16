@@ -15,9 +15,50 @@ public class TicTacToeApplication {
         while (true) {
             humanTurn();
             printMap();
+            if(checkWin(X_FIELD)){
+                System.out.println("Game over. Gamer win!");
+                break;
+            }
+            if(checkDraft()){
+                System.out.println("Game draw.");
+                break;
+            }
             aiTurn();
             printMap();
+            if(checkWin(O_FIELD)){
+                System.out.println("Game over. Computer win!");
+                break;
+            }
+            if(checkDraft()){
+                System.out.println("Game draw.");
+                break;
+            }
         }
+    }
+
+    public static boolean checkWin(char playerField){
+        if(map[0][0]==playerField&&map[0][1]==playerField&&map[0][2]==playerField)return true;
+        if(map[1][0]==playerField&&map[1][1]==playerField&&map[1][2]==playerField)return true;
+        if(map[2][0]==playerField&&map[2][1]==playerField&&map[2][2]==playerField)return true;
+
+        if(map[0][0]==playerField&&map[1][0]==playerField&&map[2][0]==playerField)return true;
+        if(map[0][1]==playerField&&map[1][1]==playerField&&map[2][1]==playerField)return true;
+        if(map[0][2]==playerField&&map[1][2]==playerField&&map[2][2]==playerField)return true;
+
+        if(map[0][0]==playerField&&map[1][1]==playerField&&map[2][2]==playerField)return true;
+        if(map[0][2]==playerField&&map[1][1]==playerField&&map[2][0]==playerField)return true;
+
+        return false;
+    }
+    public static boolean checkDraft(){
+        for (int i = 0; i < MAP_SIZE; i++) {
+            for (int j = 0; j < MAP_SIZE; j++) {
+                if(map[i][j]==EMPTY_FIELD){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static boolean isCellValid(int x, int y){
