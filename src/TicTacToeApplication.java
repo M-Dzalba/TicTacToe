@@ -81,19 +81,29 @@ public class TicTacToeApplication {
         }
         return true;
     }
+
+
     public static void aiTurn(){
         int x,y;
         System.out.println("Computer turn");
         do {
+            if(map[1][1]==EMPTY_FIELD) {
+               x=1;
+               y=1;
+               break;
+            }
+
+
             x = (int)(Math.random() * MAP_SIZE);
             y = (int)(Math.random() * MAP_SIZE);
         }while (!isCellValid(x,y));
+
         map[y][x]=O_FIELD;
     }
     public static void humanTurn(){
         int x,y;
         do {
-            System.out.println("Gamer turn. Enter the coordinates of your move X Y:");
+            System.out.println("Gamer turn. Enter the coordinates of your move (column, row):");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
         }while (!isCellValid(x,y));
