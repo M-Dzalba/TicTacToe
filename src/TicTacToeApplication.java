@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class TicTacToeApplication {
@@ -8,8 +9,10 @@ public class TicTacToeApplication {
     static final char EMPTY_FIELD='*';
     static final char X_FIELD='X';
     static final char O_FIELD='O';
+    static final int AI_LEVEL =2;
 
     public static void main(String[] args) {
+
         init();
         printMap();
         while (true) {
@@ -76,7 +79,7 @@ public class TicTacToeApplication {
         if(x<0||y<0||x>=MAP_SIZE||y>=MAP_SIZE){
             return false;
         }
-        if(map[y][x]!=EMPTY_FIELD){
+        if(map[x][y]!=EMPTY_FIELD){
             return false;
         }
         return true;
@@ -84,30 +87,86 @@ public class TicTacToeApplication {
 
 
     public static void aiTurn(){
-        int x,y;
+
+        int x =-1;
+        int y =-1;
+
         System.out.println("Computer turn");
-        do {
-            if(map[1][1]==EMPTY_FIELD) {
-               x=1;
-               y=1;
-               break;
+        boolean ai_win = false;
+        boolean user_win = false;
+        // aiLevel = 2
+
+        if(AI_LEVEL ==2){
+            for (int i = 0; i < MAP_SIZE; i++)
+            {
+                for (int j = 0; j < MAP_SIZE; j++)
+                {
+                    if (isCellValid(i, j))
+                    {
+                        map[i][j] = O_FIELD;
+                        if (checkWin(O_FIELD))
+                        {
+                            x = i;
+                            y = j;
+                            ai_win = true;
+                        }
+                        map[i][j] = EMPTY_FIELD;
+                    }
+                }
             }
 
+        }
 
-            x = (int)(Math.random() * MAP_SIZE);
-            y = (int)(Math.random() * MAP_SIZE);
-        }while (!isCellValid(x,y));
+        // aiLevel = 1
 
-        map[y][x]=O_FIELD;
+        if(AI_LEVEL >0){
+            if (!ai_win)
+            {
+                for (int i = 0; i < MAP_SIZE; i++)
+                {
+                    for (int j = 0; j < MAP_SIZE; j++)
+                    {
+                        if (isCellValid(i, j))
+                        {
+                            map[i][j] = X_FIELD;
+                            if (checkWin(X_FIELD))
+                            {
+                                x = i;
+                                y = j;
+                                user_win = true;
+                            }
+                            map[i][j] = EMPTY_FIELD;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // aiLevel = 0
+        if (!ai_win && !user_win)
+        {
+            do{
+                if(map[1][1]==EMPTY_FIELD) {
+                x=1;
+                y=1;
+                break;
+                }
+
+                x = (int)(Math.random() * MAP_SIZE);
+                y = (int)(Math.random() * MAP_SIZE);
+            }while (!isCellValid(x, y));
+        }
+        map[x][y] = O_FIELD;
     }
     public static void humanTurn(){
         int x,y;
         do {
-            System.out.println("Gamer turn. Enter the coordinates of your move (column, row):");
+            System.out.println("Gamer turn. Enter the coordinates of your move (row, column):");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
         }while (!isCellValid(x,y));
-        map[y][x]=X_FIELD;
+        map[x][y]=X_FIELD;
     }
 
 
